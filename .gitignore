@@ -10,12 +10,10 @@ venv/
 .ipynb_checkpoints/
 *.ipynb_checkpoints
 
-# Data - large raw / processed files kept out of git
+# Data - exclude raw AIS and CSVs, keep processed parquet + summary
 AIS/
-outputs/
 *.csv
-*.parquet
-!ais_file_summary.csv
+!/ais_file_summary.csv
 
 # OS / editor
 .DS_Store
