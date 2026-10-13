@@ -1,0 +1,12 @@
+# Core data stack (inferred from ais_profile.py + notebooks/*.ipynb)
+pandas
+numpy
+matplotlib
+scipy
+scikit-learn
+hdbscan
+# Parquet I/O (notebooks use df.to_parquet / pd.read_parquet)
+pyarrow
+# Notebook runtime
+jupyter
+ipykernel
