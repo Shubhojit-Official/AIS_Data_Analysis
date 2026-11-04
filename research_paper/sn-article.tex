@@ -75,58 +75,55 @@ Review the relevant literature and explain how your work relates to existing res
 
 \subsection{Dataset Description}\label{subsec:dataset}
 
-This study utilizes Automatic Identification System (AIS) data
-provided by Global Fishing Watch (GFW) to investigate the spatial
-and temporal patterns of fishing activity. The dataset consists
-of fishing-related observations recorded across geographical
-locations and time, enabling the examination of fishing effort
-at different spatial and temporal scales.
+This study uses Automatic Identification System (AIS) data
+obtained from Global Fishing Watch (GFW) to examine the
+spatiotemporal distribution of fishing activity. The dataset
+consists of daily observations associated with individual
+vessels and geographical grid cells, covering the period
+from February 2012 to December 2024.
 
-The dataset comprises monthly CSV files spanning the period
-from February 2012 to December 2024. Each observation contains
-information about the observation date, geographical grid
-coordinates, vessel identification number, total observed
-activity hours, and estimated fishing hours. The primary
-variables used in this study are:
+Each observation contains six primary variables, as
+illustrated in Table~\ref{tab:dataset-sample}.
 
-\begin{itemize}
-    \item \textbf{date:} The date associated with the recorded
-    fishing activity.
+\begin{table}[t]
+\caption{Representative observations from the AIS dataset.}
+\label{tab:dataset-sample}
+\begin{tabular}{llllrr}
+\toprule
+Date & Latitude & Longitude & MMSI & Hours & Fishing hours \\
+\midrule
+02-01-2023 & -73.0 & 179.6  & 440203000 & 2.2997  & 0.8833 \\
+02-01-2023 & -72.9 & 178.0  & 512006000 & 2.8822  & 1.5816 \\
+02-01-2023 & -72.7 & -179.3 & 272364000 & 0.6338  & 0.0000 \\
+31-03-2023 & -63.0 & -57.3  & 272208000 & 1.3694  & 0.9111 \\
+31-03-2023 & -63.0 & -57.5  & 272208000 & 6.7194  & 5.6647 \\
+31-03-2023 & -62.7 & -55.0  & 725001619 & 16.4736 & 15.6769 \\
+\botrule
+\end{tabular}
+\end{table}
 
-    \item \textbf{cell\_ll\_lat:} Latitude of the lower-left
-    coordinate of the geographical grid cell.
+The variables represent the following information:
+\textit{date} indicates the observation date;
+\textit{cell\_ll\_lat} and \textit{cell\_ll\_lon}
+represent the latitude and longitude of the lower-left
+corner of the corresponding spatial grid cell;
+\textit{mmsi} identifies the vessel using its Maritime
+Mobile Service Identity; \textit{hours} represents
+the total observed activity hours; and
+\textit{fishing\_hours} represents the estimated
+hours of fishing activity.
 
-    \item \textbf{cell\_ll\_lon:} Longitude of the lower-left
-    coordinate of the geographical grid cell.
+Following data integration and cleaning, the dataset
+contains 730,488 observations, representing 1,930
+unique vessels and 23,846 distinct spatial grid cells.
+The geographical coverage extends from
+$-29.2^\circ$ to $40.0^\circ$ latitude and
+$32.0^\circ$ to $161.9^\circ$ longitude.
 
-    \item \textbf{mmsi:} Maritime Mobile Service Identity,
-    used as the unique identifier of a vessel.
-
-    \item \textbf{hours:} Total observed activity hours
-    associated with a vessel and spatial cell.
-
-    \item \textbf{fishing\_hours:} Estimated hours of fishing
-    activity associated with a vessel and spatial cell.
-\end{itemize}
-
-The spatial coordinates represent the native geographical
-grid used by Global Fishing Watch, with a predominant
-resolution of 0.1 degrees. The observations cover latitudes
-ranging from $-29.2^\circ$ to $40.0^\circ$ and longitudes
-ranging from $32.0^\circ$ to $161.9^\circ$.
-
-Following the initial data standardization process, the
-resulting dataset contains 730,488 observations, covering
-1,930 unique vessels and 23,846 distinct geographical
-grid cells. The temporal coverage extends from
-15 February 2012 to 31 December 2024.
-
-An important characteristic of the dataset is that the
-source observations are already filtered to include
-fishing-active records. Consequently, the analysis
-primarily focuses on the estimated fishing hours rather
-than attempting to independently classify vessel
-activities from raw AIS transmissions.
+The source observations are already filtered to
+include fishing-active records. Therefore,
+\textit{fishing\_hours} is used as the primary
+measure of fishing effort in this study.
 
 
 \subsection{Data Preprocessing}\label{subsec:preprocessing}
