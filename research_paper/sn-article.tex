@@ -1,0 +1,167 @@
+
+% Springer Nature article template - clean starting point
+% Based on the supplied sn-article.tex template.
+
+\documentclass[pdflatex,sn-mathphys-num]{sn-jnl}
+
+% Standard packages from the Springer template
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{amsthm}
+\usepackage{mathrsfs}
+\usepackage[title]{appendix}
+\usepackage{xcolor}
+\usepackage{textcomp}
+\usepackage{manyfoot}
+\usepackage{booktabs}
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\usepackage{listings}
+
+% Theorem environments from the Springer template
+\theoremstyle{thmstyleone}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+
+\theoremstyle{thmstyletwo}
+\newtheorem{example}{Example}
+\newtheorem{remark}{Remark}
+
+\theoremstyle{thmstylethree}
+\newtheorem{definition}{Definition}
+
+\raggedbottom
+
+\begin{document}
+
+% ------------------------------------------------------------
+% Title and authors
+% ------------------------------------------------------------
+
+\title[Short Title]{Your Research Paper Title}
+
+\author*[1]{\fnm{First} \sur{Author}}\email{your.email@example.com}
+
+\affil*[1]{\orgdiv{Department},
+\orgname{Institution},
+\orgaddress{\city{City}, \postcode{000000}, \state{State}, \country{Country}}}
+
+% Add more authors/affiliations using the Springer commands above as needed.
+
+% ------------------------------------------------------------
+% Abstract and keywords
+% ------------------------------------------------------------
+
+\abstract{Write your abstract here. The abstract should briefly describe the research problem, methodology, main results, and conclusions.}
+
+\keywords{keyword one, keyword two, keyword three, keyword four}
+
+\maketitle
+
+% ------------------------------------------------------------
+% Main paper
+% ------------------------------------------------------------
+
+\section{Introduction}\label{sec:introduction}
+Write your introduction here. Explain the background, research problem, motivation, objectives, and contributions of the work.
+
+\section{Related Work}\label{sec:related-work}
+
+Review the relevant literature and explain how your work relates to existing research.
+
+\section{Methodology}\label{sec:methodology}
+
+Describe the proposed method, system, experiment, dataset, model, or theoretical approach in sufficient detail for the work to be understood and reproduced.
+
+% Example subsection:
+% \subsection{Data Collection}\label{subsec:data-collection}
+% Write the subsection content here.
+
+\section{Results}\label{sec:results}
+
+Present the results of your experiments, analysis, or theoretical work.
+
+% Example figure:
+% \begin{figure}[t]
+%     \centering
+%     \includegraphics[width=0.9\textwidth]{figures/example.png}
+%     \caption{Example figure caption.}
+%     \label{fig:example}
+% \end{figure}
+
+% Example table:
+% \begin{table}[t]
+% \centering
+% \caption{Example table caption.}
+% \label{tab:example}
+% \begin{tabular}{lll}
+% \toprule
+% Column 1 & Column 2 & Column 3 \\
+% \midrule
+% Value & Value & Value \\
+% \bottomrule
+% \end{tabular}
+% \end{table}
+
+\section{Discussion}\label{sec:discussion}
+
+Interpret the results, compare them with previous work, discuss limitations, and explain the implications of your findings.
+
+\section{Conclusion}\label{sec:conclusion}
+
+Summarize the main findings and contributions. Mention important limitations and possible directions for future work where appropriate.
+
+% ------------------------------------------------------------
+% Back matter
+% ------------------------------------------------------------
+
+\backmatter
+
+\bmhead{Acknowledgements}
+
+% Add acknowledgements here, or remove this section if not applicable.
+
+\section*{Declarations}
+
+\subsection*{Funding}
+Not applicable.
+
+\subsection*{Conflict of interest}
+The authors declare no conflict of interest.
+
+\subsection*{Ethics approval and consent to participate}
+Not applicable.
+
+\subsection*{Consent for publication}
+Not applicable.
+
+\subsection*{Data availability}
+Not applicable.
+
+\subsection*{Materials availability}
+Not applicable.
+
+\subsection*{Code availability}
+Not applicable.
+
+\subsection*{Author contribution}
+Not applicable.
+
+% ------------------------------------------------------------
+% Optional appendix
+% ------------------------------------------------------------
+
+% \begin{appendices}
+% \section{Additional Results}\label{sec:appendix-results}
+% Add supplementary material here.
+% \end{appendices}
+
+% ------------------------------------------------------------
+% References
+% ------------------------------------------------------------
+
+\bibliography{sn-bibliography}
+
+\end{document}
