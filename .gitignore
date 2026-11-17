@@ -20,3 +20,31 @@ AIS/
 Thumbs.db
 .vscode/
 .idea/
+
+# LaTeX build files
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.run.xml
+*.synctex.gz
+*.toc
+*.lof
+*.lot
+*.nav
+*.snm
+*.vrb
+
+# LaTeX generated PDFs
+*.pdf
+
+# Temporary files
+*.tmp
+*.bak
+
+# Editor files
+.vscode/

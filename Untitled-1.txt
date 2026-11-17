@@ -1,0 +1,10 @@
+1. Kroodsma, D.A. et al. (2018).
+2. Taconet, M., Kroodsma, D., Fernandes, J.A. (2019). Global Atlas of AIS-based Fishing Activity: Challenges and Opportunities.
+3. Global Fishing Watch (2025). Global AIS-based Apparent Fishing Effort Dataset (v3.0).
+4. Guiet, J., Galbraith, E., Kroodsma, D., Worm, B. (2019). Seasonal variability in global industrial fishing effort. PLoS ONE, 
+5. Natale, F. et al. (2015). Mapping fishing effort through AIS data. PLoS ONE, 10(6),
+6. Russo, T. et al. (2016). Assessing the fishing footprint using data integrated from different tracking devices: issues and opportunities. Ecological Indicators,
+7. Welch, H. et al. (2022). Hot spots of unseen fishing vessels. Science Advances, 8(44)
+8. Murua, H. et al. (2019). AIS-based fishing activity in the Western Indian Ocean (FAO Area 51). In Global Atlas of AIS-based Fishing Activity. FAO/IOTC
+9. IOTC (2019). AIS-based fishing activity in the Eastern Indian Ocean (IOTC-2019-WPDCS15-INF04c)
+10. Utama, F.W. et al. (2021). Estimating fishing effort and spatio-temporal distribution of longline vessels in the Indian Ocean. Frontiers in Marine Science

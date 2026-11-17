@@ -1,0 +1,465 @@
+
+% Springer Nature article template - clean starting point
+% Based on the supplied sn-article.tex template.
+
+\documentclass[pdflatex,sn-mathphys-num]{sn-jnl}
+
+% Standard packages from the Springer template
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{amsthm}
+\usepackage{mathrsfs}
+\usepackage[title]{appendix}        
+\usepackage{xcolor}
+\usepackage{textcomp}
+\usepackage{manyfoot}
+\usepackage{booktabs}
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\usepackage{listings}
+
+% Theorem environments from the Springer template
+\theoremstyle{thmstyleone}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+
+\theoremstyle{thmstyletwo}
+\newtheorem{example}{Example}
+\newtheorem{remark}{Remark}
+
+\theoremstyle{thmstylethree}
+\newtheorem{definition}{Definition}
+
+\raggedbottom
+
+\begin{document}
+
+% ------------------------------------------------------------
+% Title and authors
+% ------------------------------------------------------------
+
+\title[Short Title]{Your Research Paper Title}
+
+\author*[1]{\fnm{First} \sur{Author}}\email{your.email@example.com}
+
+\affil*[1]{\orgdiv{Department},
+\orgname{Institution},
+\orgaddress{\city{City}, \postcode{000000}, \state{State}, \country{Country}}}
+
+% Add more authors/affiliations using the Springer commands above as needed.
+
+% ------------------------------------------------------------
+% Abstract and keywords
+% ------------------------------------------------------------
+
+\abstract{Write your abstract here. The abstract should briefly describe the research problem, methodology, main results, and conclusions.}
+
+\keywords{keyword one, keyword two, keyword three, keyword four}
+
+\maketitle
+
+% ------------------------------------------------------------
+% Main paper
+% ------------------------------------------------------------
+
+\section{Introduction}\label{sec:introduction}
+Write your introduction here. Explain the background, research problem, motivation, objectives, and contributions of the work.
+
+\section{Related Work}\label{sec:related-work}
+
+Review the relevant literature and explain how your work relates to existing research.
+
+\section{Methodology}\label{sec:methodology}
+
+\subsection{Dataset Description}\label{subsec:dataset}
+
+This study uses Automatic Identification System (AIS) data
+obtained from Global Fishing Watch (GFW) to examine the
+spatiotemporal distribution of fishing activity. The dataset
+consists of daily observations associated with individual
+vessels and geographical grid cells, covering the period
+from February 2012 to December 2024.
+
+Each observation contains six primary variables, as
+illustrated in Table~\ref{tab:dataset-sample}.
+
+\begin{table}[t]
+\caption{Representative observations from the AIS dataset.}
+\label{tab:dataset-sample}
+\begin{tabular}{llllrr}
+\toprule
+Date & Latitude & Longitude & MMSI & Hours & Fishing hours \\
+\midrule
+02-01-2023 & -73.0 & 179.6  & 440203000 & 2.2997  & 0.8833 \\
+02-01-2023 & -72.9 & 178.0  & 512006000 & 2.8822  & 1.5816 \\
+02-01-2023 & -72.7 & -179.3 & 272364000 & 0.6338  & 0.0000 \\
+31-03-2023 & -63.0 & -57.3  & 272208000 & 1.3694  & 0.9111 \\
+31-03-2023 & -63.0 & -57.5  & 272208000 & 6.7194  & 5.6647 \\
+31-03-2023 & -62.7 & -55.0  & 725001619 & 16.4736 & 15.6769 \\
+\botrule
+\end{tabular}
+\end{table}
+
+The variables represent the following information:
+\textit{date} indicates the observation date;
+\textit{cell\_ll\_lat} and \textit{cell\_ll\_lon}
+represent the latitude and longitude of the lower-left
+corner of the corresponding spatial grid cell;
+\textit{mmsi} identifies the vessel using its Maritime
+Mobile Service Identity; \textit{hours} represents
+the total observed activity hours; and
+\textit{fishing\_hours} represents the estimated
+hours of fishing activity.
+
+Following data integration and cleaning, the dataset
+contains 730,488 observations, representing 1,930
+unique vessels and 23,846 distinct spatial grid cells.
+The geographical coverage extends from
+$-29.2^\circ$ to $40.0^\circ$ latitude and
+$32.0^\circ$ to $161.9^\circ$ longitude.
+
+The source observations are already filtered to
+include fishing-active records. Therefore,
+\textit{fishing\_hours} is used as the primary
+measure of fishing effort in this study.
+
+
+\subsection{Data Preprocessing}\label{subsec:preprocessing}
+
+The original dataset was distributed as multiple monthly
+CSV files organized by year. Before conducting the
+spatiotemporal analysis, these files were integrated into
+a standardized dataset through a preprocessing pipeline.
+The primary objective was to ensure consistent data
+representation, validate the temporal and spatial
+attributes, and prepare the observations for subsequent
+aggregation.
+
+\subsubsection{Monthly Data Integration}
+
+A total of 147 monthly CSV files were identified and
+processed. Only files following the monthly naming
+convention were considered, while annual summary files
+were excluded to avoid incorporating data at inconsistent
+levels of aggregation.
+
+The source files contained two different CSV structures:
+files with column headers and files without headers.
+To address this inconsistency, the expected column names
+were explicitly assigned to files without headers.
+All files were subsequently standardized using a common
+set of variables and concatenated into a single dataset.
+
+\subsubsection{Data Cleaning and Validation}
+
+The date variable was converted into a standardized
+datetime representation using mixed-format date parsing.
+The geographical coordinates, vessel identification
+numbers, and activity-hour variables were converted
+into numeric data types to ensure consistency during
+subsequent computations.
+
+Records containing missing or invalid values in the
+required analytical columns were excluded through
+complete-case filtering. The extracted year, month, and
+day components were also derived from the standardized
+date variable.
+
+Several validation procedures were performed to assess
+the quality of the integrated dataset. These included:
+
+\begin{itemize}
+    \item Verification of the correspondence between
+    the dates and the year and month indicated by
+    their respective source files.
+
+    \item Identification of missing values and
+    duplicate observations.
+
+    \item Examination of negative values in the
+    total activity hours and fishing hours variables.
+
+    \item Validation of geographical coordinates
+    against the permissible latitude and longitude
+    ranges.
+
+    \item Examination of coordinate intervals to
+    verify consistency with the native spatial grid.
+\end{itemize}
+
+The validation process identified no missing values,
+negative activity-hour values, or geographically
+invalid coordinates in the resulting dataset. A total
+of 78 duplicate rows were identified during the quality
+checks.
+
+\subsubsection{Spatial and Temporal Representation}
+
+Each observation was retained at its original
+date--spatial cell--vessel level. The geographical
+coordinates were preserved using the native grid
+representation provided by Global Fishing Watch.
+No additional spatial re-gridding was performed.
+
+The availability of observations varied across the
+study period. Although the dataset contains monthly
+files spanning 2012--2024, some months are unavailable
+in the earlier years. Therefore, missing months were
+not interpreted as periods with zero fishing activity
+and were not artificially populated with zero values.
+
+For the temporal trend analysis, the period
+2015--2024 was selected because it provides
+substantially more complete temporal coverage than
+the earlier years.
+
+Following preprocessing, the standardized dataset
+was stored in Parquet and CSV formats for use in
+subsequent analytical stages.
+
+
+\subsection{Fishing Effort Estimation}\label{subsec:fishing-effort}
+
+Fishing effort was quantified using the estimated
+fishing hours associated with each AIS observation.
+Since the source dataset contains fishing-active
+observations, the sum of fishing hours provides the
+primary measure of observed fishing effort used
+throughout this study.
+
+The estimation procedure consists of aggregating
+individual observations across geographical cells
+and temporal intervals to characterize the distribution
+and evolution of fishing activity.
+
+
+\subsubsection{Monthly Spatial Aggregation}
+
+Let $i$ represent an individual AIS observation,
+$c$ a geographical grid cell, $y$ a calendar year,
+and $m$ a calendar month.
+
+The monthly fishing effort for a geographical cell
+is calculated by summing the fishing hours of all
+observations associated with that cell during the
+corresponding month.
+
+The monthly fishing effort is therefore expressed as:
+
+\begin{equation}
+E_{c,y,m} =
+\sum_{i \in \mathcal{O}_{c,y,m}}
+f_i
+\label{eq:monthly-effort}
+\end{equation}
+
+where:
+
+\begin{itemize}
+    \item $E_{c,y,m}$ represents the total fishing effort
+    in cell $c$ during month $m$ of year $y$.
+
+    \item $\mathcal{O}_{c,y,m}$ denotes the set of
+    observations associated with the corresponding
+    spatial cell and month.
+
+    \item $f_i$ represents the fishing hours recorded
+    for observation $i$.
+\end{itemize}
+
+In addition to fishing effort, other activity indicators
+were calculated for each cell-month combination.
+These include total observed activity hours, the
+number of distinct active vessels, and the number
+of distinct observed activity dates.
+
+The total observed activity hours are calculated as:
+
+\begin{equation}
+H_{c,y,m} =
+\sum_{i \in \mathcal{O}_{c,y,m}} h_i
+\label{eq:total-hours}
+\end{equation}
+
+where $h_i$ represents the total observed activity
+hours associated with observation $i$.
+
+The number of active vessels and active days are
+calculated using the number of unique vessel
+identifiers and observation dates, respectively.
+
+A supplementary fishing ratio is also derived as:
+
+\begin{equation}
+R_{c,y,m} =
+\frac{E_{c,y,m}}{H_{c,y,m}}
+\label{eq:fishing-ratio}
+\end{equation}
+
+This ratio represents the proportion of total
+observed activity hours attributed to fishing.
+However, it is treated as a supplementary
+indicator rather than the primary measure
+of fishing effort.
+
+
+\subsubsection{Annual Fishing Effort}
+
+To investigate longer-term variations in fishing
+activity, monthly observations were further
+aggregated into annual measurements for each
+geographical cell.
+
+The annual fishing effort is calculated by summing
+the monthly fishing hours available within a given
+cell and year:
+
+\begin{equation}
+E_{c,y} =
+\sum_{m \in \mathcal{M}_{c,y}}
+E_{c,y,m}
+\label{eq:annual-effort}
+\end{equation}
+
+where $\mathcal{M}_{c,y}$ denotes the set of
+months for which observations are available
+in cell $c$ during year $y$.
+
+The number of months with available observations
+is recorded for each cell-year combination.
+Annual cell records containing observations from
+fewer than three months are excluded from the
+subsequent trend analysis.
+
+Additionally, the number of unique active vessels
+is calculated independently at the annual level.
+This avoids double-counting vessels that appear
+in multiple months within the same geographical
+cell and year.
+
+
+\subsubsection{Normalization of Fishing Effort}
+
+Annual fishing effort can be influenced by
+differences in the number of months for which
+observations are available. Comparing annual
+totals without considering this variation may
+introduce bias when examining temporal changes.
+
+To address this issue, mean monthly fishing
+effort is calculated for each cell-year
+combination:
+
+\begin{equation}
+\overline{E}_{c,y} =
+\frac{E_{c,y}}{M_{c,y}}
+\label{eq:mean-monthly-effort}
+\end{equation}
+
+where $M_{c,y}$ represents the number of months
+with available observations in cell $c$ during
+year $y$.
+
+This measure provides a coverage-normalized
+representation of fishing effort by expressing
+the annual accumulated fishing hours as an
+average over the observed months.
+
+The mean monthly fishing effort is subsequently
+used as the primary variable for estimating
+cell-level temporal trends, while the raw annual
+fishing effort is retained for descriptive
+comparisons.
+
+% Example subsection:
+% \subsection{Data Collection}\label{subsec:data-collection}
+% Write the subsection content here.
+
+\section{Results}\label{sec:results}
+
+Present the results of your experiments, analysis, or theoretical work.
+
+% Example figure:
+% \begin{figure}[t]
+%     \centering
+%     \includegraphics[width=0.9\textwidth]{figures/example.png}
+%     \caption{Example figure caption.}
+%     \label{fig:example}
+% \end{figure}
+
+% Example table:
+% \begin{table}[t]
+% \centering
+% \caption{Example table caption.}
+% \label{tab:example}
+% \begin{tabular}{lll}
+% \toprule
+% Column 1 & Column 2 & Column 3 \\
+% \midrule
+% Value & Value & Value \\
+% \bottomrule
+% \end{tabular}
+% \end{table}
+
+\section{Discussion}\label{sec:discussion}
+
+Interpret the results, compare them with previous work, discuss limitations, and explain the implications of your findings.
+
+\section{Conclusion}\label{sec:conclusion}
+
+Summarize the main findings and contributions. Mention important limitations and possible directions for future work where appropriate.
+
+% ------------------------------------------------------------
+% Back matter
+% ------------------------------------------------------------
+
+\backmatter
+
+\bmhead{Acknowledgements}
+
+% Add acknowledgements here, or remove this section if not applicable.
+
+\section*{Declarations}
+
+\subsection*{Funding}
+Not applicable.
+
+\subsection*{Conflict of interest}
+The authors declare no conflict of interest.
+
+\subsection*{Ethics approval and consent to participate}
+Not applicable.
+
+\subsection*{Consent for publication}
+Not applicable.
+
+\subsection*{Data availability}
+Not applicable.
+
+\subsection*{Materials availability}
+Not applicable.
+
+\subsection*{Code availability}
+Not applicable.
+
+\subsection*{Author contribution}
+Not applicable.
+
+% ------------------------------------------------------------
+% Optional appendix
+% ------------------------------------------------------------
+
+% \begin{appendices}
+% \section{Additional Results}\label{sec:appendix-results}
+% Add supplementary material here.
+% \end{appendices}
+
+% ------------------------------------------------------------
+% References
+% ------------------------------------------------------------
+
+\bibliography{sn-bibliography}
+
+\end{document}
