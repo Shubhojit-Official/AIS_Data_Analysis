@@ -67,11 +67,278 @@
 % ------------------------------------------------------------
 
 \section{Introduction}\label{sec:introduction}
-Write your introduction here. Explain the background, research problem, motivation, objectives, and contributions of the work.
+
+\subsection*{Background and motivation}
+
+Marine capture fisheries are a cornerstone of global food security,
+employment, and coastal livelihoods. Fish and fishery products
+supply a substantial share of the animal protein consumed in many
+coastal states, and the sector supports the income of hundreds of
+millions of people worldwide \cite{fao2024}. At the same time,
+decades of expanding harvesting capacity have placed marine
+ecosystems under sustained pressure, with well-documented
+consequences for stock abundance, ecosystem structure, and the
+economic performance of fishing fleets \cite{pauly2002,
+costello2016}. The combined effects of fleet overcapacity, illegal,
+unreported, and unregulated (IUU) fishing, and competition for
+marine space with other ocean uses have made the effective
+management of fishing activity a central objective of national and
+regional ocean governance \cite{mccauley2016, cabral2018}.
+
+Effective management requires more than aggregate catch statistics.
+It depends on a quantitative understanding of \emph{where}, \emph{when},
+and \emph{how intensively} fishing takes place. Fishing effort---the
+time and capacity expended in harvesting---is the fundamental
+quantity linking fleet behaviour to ecological impact, and its
+spatial distribution is highly heterogeneous. A relatively small
+number of productive grounds and seasonally predictable aggregations
+often concentrate a large share of total effort, so that identical
+aggregate totals can correspond to very different patterns of
+pressure on the resource. Spatially and temporally explicit effort
+information is therefore indispensable for stock assessment,
+spatial management such as closed areas and marine protected areas,
+fleet monitoring, and the evaluation of management interventions
+\cite{lee2010, sala2018}.
+
+\subsection*{From conventional monitoring to AIS-based observation}
+
+Conventional sources of effort data include logbooks, onboard
+observers, landing records, and vessel monitoring systems (VMS).
+Each has well-known constraints. Logbooks and landings are usually
+reported at coarse spatial and temporal resolution, observers cover
+only a small fraction of fishing trips, and VMS records are
+typically proprietary, are held by national administrations, and are
+seldom comparable across jurisdictions \cite{lee2010,
+gerritsen2011}. These limitations are particularly severe for
+large-scale monitoring in data-limited regions, where reporting
+infrastructure is uneven and where the spatial footprint of fleets
+extends far beyond national waters.
+
+The Automatic Identification System (AIS) has emerged as a
+transformative alternative. Originally introduced for collision
+avoidance, AIS broadcasts vessel position, identity, course, and
+speed at high frequency, and its adoption has become compulsory for
+increasingly small vessel classes in many jurisdictions. Because AIS
+messages can be received both terrestrially and by satellite, they
+provide an unprecedented, near-real-time, vessel-level view of
+activity at sea \cite{natale2015, vespe2016}. Methodological advances
+in classifying fishing behaviour from speed and track
+characteristics, including rule-based and machine learning
+approaches, have made it possible to convert raw positional data
+into spatially explicit estimates of fishing effort
+\cite{natale2015, desouza2016}. Building on these advances, Global
+Fishing Watch (GFW) assembled a global AIS-derived dataset and
+produced the first consistent, high-resolution maps of global
+fishing activity, revealing that the geographic footprint of
+fishing is substantially larger than previously documented from
+reported statistics \cite{kroodsma2018, taconet2019}. More recent
+work combining AIS with satellite imagery has further extended this
+observational capacity to previously undetected industrial
+activity, including vessels that do not broadcast AIS
+\cite{paolo2024}.
+
+\subsection*{The problem of uneven and expanding coverage}
+
+Despite these advances, AIS-based monitoring introduces a
+methodological challenge that is often overlooked in applied
+studies: observation coverage is neither spatially uniform nor
+temporally stationary. Reception density depends on the
+availability of terrestrial receivers and satellite overpasses,
+fishing fleets differ in AIS adoption rates, and small vessels are
+systematically under-represented \cite{kroodsma2018, paolo2024}.
+Over the period in which global AIS archives have been assembled,
+the number of monitored vessels and the number of observed spatial
+cells have grown substantially. As a direct consequence, annual
+totals of recorded fishing hours conflate two distinct processes:
+genuine changes in fishing intensity and changes in the capacity of
+the observing system. Interpreting raw annual aggregates as
+evidence of intensification or decline can therefore produce
+misleading conclusions. Any analysis of long-term change must
+explicitly account for the number of months for which observations
+are available in each location and must adopt an indicator that is
+robust to this form of coverage bias.
+
+A second limitation concerns the scale of analysis. The majority of
+AIS-based studies report aggregated global or regional summaries,
+or focus on a small number of intensively studied fleets. While
+these studies have established the broad geography of fishing
+effort \cite{kroodsma2018, watson2018}, comparatively few provide
+cell-level, long-term trend estimates accompanied by formal
+statistical inference and an explicit classification of locations
+into increasing, declining, and stable categories. Such
+disaggregated diagnostics are essential because opposing trends in
+adjacent areas can cancel in regional averages, and because
+management actions must be targeted at the scale at which fishing
+actually occurs. The need is especially acute for the Indian Ocean
+and adjacent waters, which support large and highly diverse
+multi-gear fleets and a substantial share of the world's small-scale
+fishers, yet remain comparatively under-represented in
+high-resolution, long-term effort analyses relative to the Atlantic
+and Pacific.
+
+\subsection*{Objectives and contributions}
+
+This study addresses these gaps by analysing a long-term,
+vessel-level AIS-derived fishing effort dataset obtained from Global
+Fishing Watch. The analysis, introduced in
+Section~\ref{sec:methodology}, integrates daily observations for the
+period February 2012 to December 2024 into a standardized dataset of
+730{,}488 observations, covering 1{,}930 unique vessels and
+23{,}846 distinct spatial grid cells across a domain extending from
+$-29.2^\circ$ to $40.0^\circ$ latitude and from $32.0^\circ$ to
+$161.9^\circ$ longitude. The specific objectives are to
+(i)~characterize the spatial distribution of accumulated fishing
+effort and identify persistently high-effort locations;
+(ii)~quantify the temporal evolution of effort at the level of
+individual grid cells; and
+(iii)~classify cells into statistically significant increasing,
+declining, and stable categories, and relate the resulting spatial
+pattern to identifiable fishing regions.
+
+The main contributions of the work are as follows.
+
+\begin{itemize}
+    \item A reproducible preprocessing and aggregation pipeline that
+    integrates heterogeneous daily AIS files into a validated
+    analysis-ready dataset, with explicit checks on temporal
+    correspondence, duplicate records, value ranges, and coordinate
+    consistency.
+
+    \item A coverage-normalized indicator of fishing effort, defined
+    as mean monthly fishing hours per cell-year, which removes the
+    dominant source of bias arising from the progressive expansion
+    of AIS observation coverage and thereby permits defensible
+    comparison of effort through time.
+
+    \item A cell-level trend analysis that combines ordinary least
+    squares regression with explicit significance testing and a
+    minimum-observation criterion, yielding a formal classification
+    of fishing-effort trajectories rather than a purely descriptive
+    account.
+
+    \item An empirical characterization of spatially divergent
+    trajectories, showing that statistically significant declines
+    are concentrated in a small cluster of cells in the eastern
+    Arabian Sea, whereas significant increases occur in a distinct
+    and largely non-overlapping set of cells, indicating that
+    change in this region is spatially structured rather than
+    uniform.
+
+    \item A transparent account of the limitations imposed by
+    incomplete monthly coverage and fleet under-representation,
+    together with an explicit decision not to impute missing
+    months as zero effort, which guards against systematic
+    underestimation in data-sparse areas and periods.
+\end{itemize}
+
+The remainder of the paper is organized as follows.
+Section~\ref{sec:related-work} reviews related literature on
+AIS-based effort estimation and spatial trend analysis.
+Section~\ref{sec:methodology} describes the dataset, the
+preprocessing procedures, and the effort estimation and
+normalization framework. Section~\ref{sec:results} presents the
+temporal coverage, the spatial distribution of effort, and the
+spatially resolved trend results. Section~\ref{sec:discussion}
+interprets the findings in relation to previous work, discusses
+limitations, and outlines implications for monitoring and
+management. Section~\ref{sec:conclusion} concludes and identifies
+directions for future research.
 
 \section{Related Work}\label{sec:related-work}
 
-Review the relevant literature and explain how your work relates to existing research.
+\subsection{AIS as a fishing-effort observation system}\label{subsec:ais-observation}
+
+The Automatic Identification System (AIS) was introduced primarily for
+collision avoidance, but its high-frequency broadcasts of position, identity,
+course, and speed have made it a central data source for fisheries
+monitoring. Natale et al. \cite{natale2015} demonstrated that AIS records can
+be converted into spatially explicit maps of fishing effort, and Russo et al.
+\cite{russo2016} showed that integrating AIS with VMS and other tracking
+devices improves estimates of the fishing footprint while exposing
+differences in spatial, temporal, and fleet coverage between sources. At the
+global scale, Kroodsma et al. \cite{kroodsma2018} assembled satellite AIS
+data into the first consistent high-resolution maps of industrial fishing
+activity, and Taconet et al. \cite{taconet2019} consolidated the
+methodological basis of AIS-based fishing activity in the FAO Global Atlas,
+including its reception, classification, and coverage limitations. These
+studies establish that AIS can resolve fishing activity at vessel and
+grid-cell scales; the present work builds on this foundation but focuses on
+long-term, cell-level trajectories rather than global or regional snapshots.
+
+\subsection{Coverage, reception, and data-quality bias}\label{subsec:coverage-bias}
+
+A recurring limitation of AIS-based monitoring is that observation coverage
+is neither spatially uniform nor temporally stationary. Welch et al.
+\cite{welch2022} documented extensive intentional disabling of AIS and
+identified hot spots of unseen fishing vessels, while Shepperson et al.
+\cite{shepperson2018} compared AIS with VMS for individual vessels and found
+that AIS captured only about one quarter of the time spent fishing, with
+substantial variation among vessels and with grid-cell size strongly
+affecting footprint estimates. More recently, Hintzen et al.
+\cite{hintzen2025} showed that Global Fishing Watch (GFW) AIS-derived
+fishing events can overestimate gear deployment and fishing effort, and
+Cabanellas-Reboredo et al. \cite{cabanellas2022} reported a pronounced AIS
+coverage gap in the Indian Ocean relative to VMS for tropical tuna purse
+seiners. Together, these findings imply that raw annual totals conflate
+changes in fishing intensity with changes in the capacity of the observing
+system. This is the motivation for the coverage-normalized indicator used
+here, mean monthly fishing hours per cell-year, and for the decision not to
+impute missing months as zero effort.
+
+\subsection{Spatial and temporal patterns of fishing effort}\label{subsec:effort-patterns}
+
+Global fishing effort is spatially concentrated and strongly seasonal.
+Guiet et al. \cite{guiet2019} quantified seasonal variability in global
+industrial fishing effort, and Anticamara et al. \cite{anticamara2011}
+documented the long-term growth of global fishing effort together with
+persistent gaps in reporting and monitoring. Most AIS-based studies,
+however, report aggregate global or regional summaries, or focus on a small
+number of intensively studied fleets. Cell-level analyses that estimate
+trends independently for each location, test their statistical significance,
+and classify locations into increasing, declining, and stable categories
+remain comparatively rare, particularly for the Indian Ocean and adjacent
+waters. This gap is important because opposing trends in adjacent areas can
+cancel in regional averages, and because management actions are targeted at
+the scale at which fishing actually occurs.
+
+\subsection{Trend detection and classification}\label{subsec:trend-detection}
+
+Trend detection in environmental and fisheries time series is commonly based
+either on linear regression or on non-parametric methods such as the
+Mann--Kendall test and Sen's slope. Zhao et al. \cite{zhao2024stressors}
+and Bettcher et al. \cite{bettcher2026} applied pixel-level Mann--Kendall
+analysis to AIS-derived and related spatial indicators, and these studies
+provide the closest methodological benchmarks for the present analysis.
+Hardison et al. \cite{hardison2019} showed through simulation that short,
+autocorrelated indicator series produce biased rejection rates and that no
+single trend test performs uniformly best, which supports the use of an
+explicit minimum-observation criterion and a cautious interpretation of
+significance. Because trends are estimated independently for many grid
+cells, the resulting multiple comparisons also require attention;
+Benjamini and Hochberg \cite{benjamini1995} provide the standard
+false-discovery-rate framework for this setting. The present study therefore
+uses ordinary least squares for interpretable slopes and effect sizes,
+combined with a minimum-observation rule and explicit significance testing,
+and reports the resulting classification as an empirical description rather
+than as a new trend estimator.
+
+\subsection{Regional context: Indian Ocean and Indian EEZ}\label{subsec:indian-ocean}
+
+The Indian Ocean supports large and highly diverse multi-gear fleets and a
+substantial share of the world's small-scale fishers, yet it remains
+under-represented in high-resolution, long-term AIS analyses relative to the
+Atlantic and Pacific. Murua et al. \cite{murua2019} and the IOTC
+\cite{iotc2019} described AIS-based fishing activity in the Western and
+Eastern Indian Ocean, respectively, and Utama et al. \cite{utama2021}
+estimated the effort and spatio-temporal distribution of longline vessels in
+the Indian Ocean. Cappa et al. \cite{cappa2024} compared AIS-derived effort
+with reported catches for Indian Ocean industrial fisheries, highlighting
+both the value and the current limits of AIS for regional monitoring. These
+studies establish the regional baseline but are largely descriptive or
+fleet-specific. The present work extends them by estimating cell-level,
+multi-year trends with formal significance testing and by classifying the
+eastern Arabian Sea and adjacent Indian EEZ waters into increasing,
+declining, and stable fishing-effort trajectories.
 
 \section{Methodology}\label{sec:methodology}
 
